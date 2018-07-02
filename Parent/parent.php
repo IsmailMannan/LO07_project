@@ -16,15 +16,15 @@
   <nav class="white nav-extended">
     <div class="container nav-wrapper">
       <ul class="right hide-on-med-and-down">
-        <li>  <a href="../db/deconnexion.php" class="btn waves-effect waves-light  pink lighten-1">Déconnexion</a></li>
+          <li>  <a href="../Connexion/deconnexion.php" class="btn waves-effect waves-light  pink lighten-1">Déconnexion</a></li>
       </ul>
     </div>
 
     <div class="pink lighten-4 nav-content">
       <ul id="tabs" class="tabs tabs-transparent">
-        <li class="tab"><a class="grey-text text-darken-1 active" href="#recherche">Recherche</a></li>
-        <li class="tab"><a class="grey-text text-darken-1 " href="#listegardes">Mes demandes de gardes</a></li>
-        <li class="tab"><a class="grey-text text-darken-1 " href="#gardeseval">Mes gardes à évaluer</a></li>
+          <li class="tab"><a class="grey-text text-darken-1 active" href="../modules/recherches.php">Recherche</a></li>
+          <li class="tab"><a class="grey-text text-darken-1 " href="../modules/listegardes.php">Mes demandes de gardes</a></li>
+          <li class="tab"><a class="grey-text text-darken-1 " href="../modules/listesgardesEval.php">Mes gardes à évaluer</a></li>
 
       </ul>
     </div>
