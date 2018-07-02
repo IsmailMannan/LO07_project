@@ -10,7 +10,7 @@
     <title>Formulaire enfants</title>
   </head>
   <body>
-    
+
   <div class='container'>
 
 <?php
@@ -40,7 +40,14 @@ if(formValide() && $_POST["nbenfants"]>0){
   }
   echo "</ul>";
   $nombreEnfants = $_POST["nbenfants"];
+
   debutFormEnfants();
+
+  $req = "SELECT * FROM utilisateur WHERE email='".$_POST['email']."'";
+  $res = $conn->query($req);
+  $idp = $res->fetch_array()['idUtilisateur'];
+  echo "<input name='id_parent' type='hidden' value='$idp'>";
+
   for ($i=0; $i <$nombreEnfants ; $i++) {
     echo("<h3> Enfant ". ($i+1)."</h3>");
     formEnfants($i);
