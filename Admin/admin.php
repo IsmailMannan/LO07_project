@@ -17,7 +17,7 @@
      
       <a class="brand-logo center  grey-text text-darken-1">Administration</a>
       <ul class="right hide-on-med-and-down">
-        <li>  <a href="../db/deconnexion.php" class="btn waves-effect waves-light teal lighten-1">Déconnexion</a></li>
+          <li>  <a href="../Connexion/deconnexion.php" class="btn waves-effect waves-light teal lighten-1">Déconnexion</a></li>
       </ul>
     </div>
   </nav>
