@@ -12,28 +12,28 @@
 <body class="administration">
   <nav class="white">
     <div class="container nav-wrapper">
-      <a id="logo-container" href="../accueil/admin.php" class="brand-logo  grey-text text-darken-1">NounouFinder</a>
       <a class="brand-logo center  grey-text text-darken-1">Dossier Nounou</a>
       <ul class="right hide-on-med-and-down">
-        <li>  <a href="../db/deconnexion.php" class="btn waves-effect waves-light teal lighten-1">Déconnexion</a></li>
+        <li>  <a href="../Connexion/deconnexion.php" class="btn waves-effect waves-light teal lighten-1">Déconnexion</a></li>
       </ul>
     </div>
   </nav>
   <div class="container">
     <br>
-<?php require_once '../db/connection.php';
-$sql = "SELECT nom,prenom,ville,email,portable,age,experience,presentation FROM utilisateur WHERE email='".$_GET['email']."'";
+<?php require_once '../Connexion/connexion.php';
+session_start();
+$id = $_SESSION['id'];
+
+$sql = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE idUtilisateur='$id'";
 
 $nounou = $conn->query($sql);
 $row = $nounou->fetch_row();
-$sql2 = "SELECT garde_id, debut, fin, email_parent, tarif FROM garde WHERE  nounou_email='".$_GET['email']."'";
+$sql2 = "SELECT idPrestation, date_debut, date_fin, idNounou, idParent, tarif FROM prestation WHERE  idNounou='$id'";
 $garde = $conn->query($sql2);
 echo("<h5> Prénom : $row[1]</h5>");
-echo("<h5> Nom : $row[0]</5>");
+echo("<h5> Nom : $row[0]</h5>");
 echo("<h5> E-mail : ".$row[3]."</h5>");
 echo("<h5> Nombre de gardes : ".$garde->num_rows ."</h5><br/>");
-
-
 ?>
 
 
@@ -53,10 +53,10 @@ echo("<h5> Nombre de gardes : ".$garde->num_rows ."</h5><br/>");
       while ($row2 = $garde->fetch_row()) {
 
 
-        $sql3 = "SELECT description, note FROM evaluation WHERE garde_id='$row2[0]'";
+        $sql3 = "SELECT note, appreciation FROM evaluation WHERE prestation_id='$row2[0]'";
 
-        $evaluatoon= $conn->query($sql3);
-        $row3 = $evaluatoon->fetch_row();
+        $evaluation= $conn->query($sql3);
+        $row3 = $evaluation->fetch_row();
           echo "<tr>";
               echo "<td>"."<b>Du </b> $row2[1]<b> au </b> $row2[2]" ."</td>";
 

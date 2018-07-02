@@ -1,13 +1,14 @@
 <?php
 
-require_once '../db/nounouInscrite.php';
-require_once '../db/connection.php';
+require_once '../Nounou/nounouInscrite.php';
+require_once '../Connexion/connexion.php';
 
-if (isset($_GET['type'])) {
-  if ($_GET['type'] == 'block') {
-    $sql = "UPDATE utilisateur SET type_user='block' WHERE email='".$_GET['email']."'";
+//0 en attente, 1 ounou, 2 bloquée
+if (isset($_GET['categorie'])) {
+  if ($_GET['categorie'] == '2') {
+    $sql = "UPDATE utilisateur SET type_user='2' WHERE email='".$_GET['email']."'";
     $conn->query($sql);
-    header('Location: ..\accueil\listes.php?nounous');
+    header('Location: ../Admin/listes.php?nounous');
   }
 } ?>
 
@@ -45,7 +46,7 @@ if (isset($_GET['type'])) {
     <a style='cursor:pointer;' href='listes.php?type=block&email=<?php echo $row[3] ?>'><i class='small material-icons red-text'>block</i></a>
     </td>
   <td class='center'>
-    <a style='cursor:pointer;' href='..\modules\dossier.php?email=<?php echo $row[3] ?>'><i class='small material-icons blue-text'>link</i></a>
+    <a style='cursor:pointer;' href='../modules/dossier.php?email=<?php echo $row[3] ?>'><i class='small material-icons blue-text'>link</i></a>
   </td>
 
   <?php

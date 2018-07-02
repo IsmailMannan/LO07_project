@@ -1,20 +1,20 @@
 <?php
 
-require_once '../db/newNounous.php';
-require_once '../db/connection.php';
+require_once '../Nounou/nounouCandidate.php';
+require_once '../Connexion/connexion.php';
 
-if (isset($_GET['type'])) {
-  switch ($_GET['type']) {
+if (isset($_GET['categorie'])) {
+  switch ($_GET['categorie']) {
     case 'add':
-      $sql = "UPDATE utilisateur SET type_user='nounou' WHERE email='".$_GET['email']."'";
+      $sql = "UPDATE utilisateur SET categorie='1' WHERE email='".$_GET['email']."'";
       $conn->query($sql);
-      header('Location: ..\accueil\listes.php?candidats');
+      header('Location: ../Admin/listes.php?candidats');
       break;
     case 'remove':
-      $sql = "DELETE FROM utilisateur_has_langue WHERE utilisateur_email='".$_GET['email']."';";
+   //   $sql = "DELETE FROM utilisateur WHERE utilisateur_email='".$_GET['email']."';";
       $sql .= "DELETE FROM utilisateur WHERE email='".$_GET['email']."'";
       $conn->multi_query($sql);
-      header('Location: ..\accueil\listes.php?candidats');
+      header('Location: ../Admin/listes.php?candidats');
       break;
   }
 } ?>
@@ -48,8 +48,8 @@ if (isset($_GET['type'])) {
         echo "<td>".$value."</td>";
       }
     echo "<td>" ?>
-    <a style='cursor:pointer;' href='listes.php?type=add&email=<?php echo $row[3] ?>'><i class='small material-icons green-text'>check</i></a>
-    <a style='cursor:pointer;' href='listes.php?type=remove&email=<?php echo $row[3] ?>'><i class='small material-icons red-text'>close</i></a>
+  <a style='cursor:pointer;' href='../modules/candidats.php?categorie=add&email=<?php echo $row[3] ?>'><i class='small material-icons green-text'>check</i></a>
+  <a style='cursor:pointer;' href='../modules/candidats.php?categorie=remove&email=<?php echo $row[3] ?>'><i class='small material-icons red-text'>close</i></a>
     </td>
   <?php
     echo "</tr>";

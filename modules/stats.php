@@ -12,7 +12,6 @@
 <body class="administration">
   <nav class="white nav-extended">
     <div class="container nav-wrapper">
-      <a id="logo-container" href="../accueil/admin.php" class="brand-logo  grey-text text-darken-1">NounouFinder</a>
       <a class="brand-logo center  grey-text text-darken-1">Statistiques</a>
       <ul class="right hide-on-med-and-down">
         <li>  <a href="../db/deconnexion.php" class="btn waves-effect waves-light teal lighten-1">Déconnexion</a></li>
@@ -29,17 +28,17 @@
   <div class="container">
 
 <?php
-require_once '../db/newNounous.php';
-require_once '../db/nounouInscrite.php';
-require_once '../db/parentInscrit.php';
-require_once '../db/enfantInscrit.php';
+require_once '../Nounou/listeNounou.php';
+require_once '../Nounou/nounouInscrite.php';
+//require_once '../db/parentInscrit.php';
+//require_once '../db/enfantInscrit.php';
 
 
 
 
 session_start();
 
-if (isset($_SESSION['user']) && $_SESSION['user']['type_user'] == 'admin') {
+//if (isset($_SESSION['user']) && $_SESSION['user']['type_user'] == 'admin') {
 echo("<div id='nbInscrits'>");
   echo'<br/>';
 
@@ -98,9 +97,9 @@ echo("<div id='nbInscrits'>");
   require_once '../modules/CAParAn.php';
   echo "</div>";
 
-} else {
-  echo "<h1 class='red-text'>Accees refusé</h1>";
-}
+//} else {
+ // echo "<h1 class='red-text'>Accees refusé</h1>";
+//}
 ob_end_flush();
 ?>
 </div>

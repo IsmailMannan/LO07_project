@@ -1,7 +1,13 @@
 <?php
 
-require_once '../db/nounouInscrite.php';
-require_once '../db/connection.php';
+require_once '../Connexion/connexion.php';
+
+$sql52 = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE type_user = '1' and categorie='1'";
+$sql32 = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE type_user = '1' and categorie='2'";
+
+$nounousInscrites = $conn->query($sql52);
+$nounousBloquées = $conn->query($sql32);
+
 
  ?>
 
@@ -33,10 +39,11 @@ require_once '../db/connection.php';
 
   <?php
 
-  $sqlNounouRevenu= "SELECT u.nom, u.prenom,u.ville, g.nounou_email, u.portable,u.age,u.experience,u.type_user, SUM(g.tarif) revenu
-FROM garde g
-INNER JOIN utilisateur u ON g.nounou_email = u.email
-GROUP BY g.nounou_email
+ //liste des nounous avec leur revenu respectif  
+  $sqlNounouRevenu= "SELECT u.nom, u.prenom,u.adresse, p.idNounou, u.portable,u.age,u.experience,u.type_user, SUM(p.tarif) revenu
+FROM prestation p
+INNER JOIN utilisateur u ON p.idNounou = u.idUtilisateur
+GROUP BY p.idNounou
 ORDER BY revenu DESC";
 
 
@@ -48,7 +55,7 @@ ORDER BY revenu DESC";
     for ($i=0; $i <7 ; $i++) {
       echo "<td>".$rowNounouRevenu[$i]."</td>";
     }
-    if($rowNounouRevenu[7]=='block'){
+    if($rowNounouRevenu[7]=='2'){
       echo "<td> Bloquée</td>";
 
     }else {
@@ -63,15 +70,15 @@ ORDER BY revenu DESC";
 
 
 
-  // certaines nounou n'ont pas de revenus
-  $sqlNounou= "SELECT nom, prenom,ville, email, portable,age,experience, type_user FROM utilisateur WHERE type_user='block' OR type_user='nounou'";
+  // nounous dont les revenus sont nuls
+  $sqlNounou= "SELECT nom, prenom,adresse, email, portable,age,experience, type_user FROM utilisateur WHERE type_user='1' and categorie='2' OR categorie='0'";
   $nounou=$conn->query($sqlNounou);
   $nounouRevenu= $conn->query($sqlNounouRevenu);
   while ( $rowNounou = $nounou->fetch_row())
- {    $sqlNounouRevenu= "SELECT u.nom, u.prenom,u.ville, g.nounou_email, u.portable,u.age,u.experience, u.type_user, SUM(g.tarif) revenu
-   FROM garde g
-   INNER JOIN utilisateur u ON g.nounou_email = u.email
-   GROUP BY g.nounou_email
+ {    $sqlNounouRevenu= "SELECT u.nom, u.prenom,u.adresse, p.idNounou, u.portable,u.age,u.experience, u.type_user, SUM(p.tarif) revenu
+   FROM prestation p
+   INNER JOIN utilisateur u ON p.idNounou = u.idUtilisateur
+   GROUP BY p.idNounou
    ORDER BY revenu DESC";
    $nounouRevenu= $conn->query($sqlNounouRevenu);
   $revenu=false;
@@ -89,7 +96,7 @@ ORDER BY revenu DESC";
        for ($i=0; $i <7 ; $i++) {
          echo "<td>".$rowNounou[$i]."</td>";
        }
-       if($rowNounou[7]=='block'){
+       if($rowNounou[7]=='2'){
          echo "<td> Bloquée</td>";
 
        }else {

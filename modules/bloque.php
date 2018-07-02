@@ -1,13 +1,16 @@
 <?php
 
-require_once '../db/nounouBlock.php';
-require_once '../db/connection.php';
+require_once '../Connexion/connexion.php';
+
+$resblock = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE type_user = 'block'";
+
+$nounousBlock = $conn->query($resblock);
 
 if (isset($_GET['type'])) {
   if ($_GET['type'] == 'unlock') {
-    $sql = "UPDATE utilisateur SET type_user='nounou' WHERE email='".$_GET['email']."'";
+    $sql = "UPDATE utilisateur SET type_user='1' WHERE email='".$_GET['email']."'";
     $conn->query($sql);
-    header('Location: ..\accueil\listes.php?bloques');
+    header('Location: ../Admin/listes.php?bloques');
   }
 } ?>
 
@@ -46,7 +49,7 @@ if (isset($_GET['type'])) {
     <a style='cursor:pointer;' href='listes.php?type=unlock&email=<?php echo $row[3] ?>'><i class='small material-icons green-text'>lock_open</i></a>
     </td>
     <td class='center'>
-      <a style='cursor:pointer;' href='..\modules\dossier.php?email=<?php echo $row[3] ?>'><i class='small material-icons'>link</i></a>
+      <a style='cursor:pointer;' href='../modules/dossier.php?email=<?php echo $row[3] ?>'><i class='small material-icons'>link</i></a>
     </td>
   <?php
     echo "</tr>";
