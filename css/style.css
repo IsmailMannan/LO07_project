@@ -1,6 +1,4 @@
-#nounoufinder{
-  margin-left: 560px;
-font-size: 70;}
+
 
 #description{
   margin-left: 255px;
@@ -182,7 +180,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url(../img/hero-bg.jpg) top center;
+  background: url(../img/background1.jpg) top center;
   background-size: cover;
   position: relative;
 }
