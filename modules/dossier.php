@@ -24,7 +24,7 @@
 session_start();
 $id = $_SESSION['id'];
 
-$sql = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE idUtilisateur='$id'";
+$sql = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE idUtilisateur='6'";
 
 $nounou = $conn->query($sql);
 $row = $nounou->fetch_row();

@@ -4,7 +4,7 @@
 <h3>Liste des gardes proposées</h3>
 <p><?php
 echo "</br>";
-require_once '../db/gardesParent.php';
+require_once '../Parent/gardeParent.php';
 echo '<h5><b>' .$gardesParent->num_rows. '</b>'; ?> Garde(s) proposée(s) :</h5> </p>
 <br/>
 

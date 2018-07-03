@@ -33,9 +33,9 @@
     <div class="input-field col s3">
       <select multiple name ="enfants[]">
         <?php
-          require_once '../db/connection.php';
+          require_once '../Connexion/connexion.php';
           session_start();
-          $sqlE = "SELECT * FROM enfant WHERE email_parent = '". $_SESSION['user']['email']."'";
+          $sqlE = "SELECT * FROM enfant WHERE idParent = '". $_SESSION['id']."'";
           $resE = $conn->query($sqlE);
           while($enf = $resE->fetch_row()){
             echo "<option value=$enf[0]>$enf[2]</option>";
@@ -65,11 +65,8 @@
 <div class="row">
 <?php
 if (isset($_GET['date'])) {
-  $sql = "SELECT * FROM dispo
-          INNER JOIN utilisateur u ON dispo.nounou_email = u.email";
-  if (isset($_GET['langue'])) {
-    $sql .= " INNER JOIN utilisateur_has_langue ul on u.email = ul.utilisateur_email";
-  }
+  $sql = "SELECT * FROM disponibilite
+          INNER JOIN utilisateur u ON disponibilite.idNounou = u.idUtilisateur";
   $sql .= " WHERE";
   $jour = $_GET['date'];
   $conv = DateTime::createFromFormat('d/m/Y', $jour);
@@ -79,38 +76,35 @@ if (isset($_GET['date'])) {
     $debut = $_GET['debut'].':00';
     $fin = $_GET['fin'].':00';
     if ($fin == '00:00:00') {$fin = '23:59:59';};
-    $sql .=" dispo.debut <= '$debut' AND dispo.fin >= '$fin'";
+    $sql .=" disponibilite.date_debut <= '$debut' AND disponibilite.date_fin >= '$fin'";
   }
   if ($_GET['type'] == 'reg') {
-    $sql.=" AND dispo.jour = '$numJ'";
+    $sql.=" AND disponibilite.jour = '$numJ'";
     $tjour = $numJ;
   } else {
-    $sql.=" AND (dispo.jour = '$jour' OR dispo.jour = '$numJ')";
+    $sql.=" AND (disponibilite.jour = '$jour' OR disponibilite.jour = '$numJ')";
     $tjour =$jour;
   }
-  if (isset($_GET['langue'])) {
-    $sql .= " AND ul.langue_id = '".$_GET['langue']."'";
-  }
-  $resa = array('enfants' => $_GET['enfants'], 'debut' => $_GET['debut'], 'fin' => $_GET['fin'], 'jour' => $tjour, 'email_parent' => $_SESSION['user']['email']);
+  $resa = array('enfants' => $_GET['enfants'], 'debut' => $_GET['debut'], 'fin' => $_GET['fin'], 'jour' => $tjour, 'idParent' => $_SESSION['user']['idUtilisateur']);
   $_SESSION['resa']=$resa;
 } else {
-  $sql = "SELECT * FROM utilisateur WHERE type_user='nounou'";
+  $sql = "SELECT * FROM utilisateur WHERE type_user='1'";
 }
 $res = $conn->query($sql);
 if($res) {
   while ($row = $res->fetch_assoc()) {
-    $email = $row['email'];
-    $sql2 = "SELECT * FROM utilisateur_has_langue ul INNER JOIN langue l ON ul.langue_id = l.langue_id WHERE utilisateur_email = '$email'";
-    $res2 = $conn->query($sql2)->fetch_all();
+    $id = $row['idUtilisateur'];
+   // $sql2 = "SELECT * FROM utilisateur_has_langue ul INNER JOIN langue l ON ul.langue_id = l.langue_id WHERE utilisateur_email = '$email'";
+  //  $res2 = $conn->query($sql2)->fetch_all();
     $langues = '';
     for ($i=0; $i < count($res2); $i++) {
       $langues .= $res2[$i][3] . ' ';
     };
     if (isset($_GET['date'])){
       $dateUS = $conv->format('Y-m-d');
-      $sql3 = "SELECT * FROM garde WHERE nounou_email = '$email'
-              AND (((debut BETWEEN '$numJ $debut' AND '$numJ $fin') AND (fin BETWEEN '$numJ $debut' AND '$numJ $fin'))
-                OR ((debut BETWEEN '$dateUS $debut' AND '$dateUS $fin') AND (fin BETWEEN '$dateUS $debut' AND '$dateUS $fin')))";
+      $sql3 = "SELECT * FROM prestation WHERE idNounou = '$id'
+              AND (((date_debut BETWEEN '$numJ $debut' AND '$numJ $fin') AND (date_fin BETWEEN '$numJ $debut' AND '$numJ $fin'))
+                OR ((date_debut BETWEEN '$dateUS $debut' AND '$dateUS $fin') AND (date_fin BETWEEN '$dateUS $debut' AND '$dateUS $fin')))";
       $res3 = $conn->query($sql3);
     }
     if (!isset($_GET['date']) || $res3->num_rows == 0){
@@ -126,8 +120,8 @@ if($res) {
         <p>Langues: <?php echo $langues?></p>
       </div>
       <div class="card-action">
-        <a href="../db/reservation.php?email=<?php echo $row['email'] ?>">Réserver</a>
-        <a href="../modules/profilnounou.php?email=<?php echo $row['email'] ?>" class="right">Profil</a>
+          <a href="../parent/gardeReservation.php?email=<?php echo $row['email'] ?>">Réserver</a>
+       <!-- <a href="../modules/profilnounou.php?email=<?php echo $row['email'] ?>" class="right">Profil</a>    -->
       </div>
     </div>
   </div>
@@ -137,5 +131,4 @@ if($res) {
   }
 }
 ?>
-</div>
 </div>
