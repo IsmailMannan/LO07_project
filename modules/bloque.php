@@ -2,13 +2,13 @@
 
 require_once '../Connexion/connexion.php';
 
-$resblock = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE type_user = 'block'";
+$resblock = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE categorie = '2'";
 
 $nounousBlock = $conn->query($resblock);
 
 if (isset($_GET['type'])) {
   if ($_GET['type'] == 'unlock') {
-    $sql = "UPDATE utilisateur SET type_user='1' WHERE email='".$_GET['email']."'";
+    $sql = "UPDATE utilisateur SET categorie='2' WHERE email='".$_GET['email']."'";
     $conn->query($sql);
     header('Location: ../Admin/listes.php?bloques');
   }

@@ -3,6 +3,7 @@
 require_once '../Nounou/nounouCandidate.php';
 require_once '../Connexion/connexion.php';
 
+//ajout d'une candidature dans la base ou retrait 
 if (isset($_GET['categorie'])) {
   switch ($_GET['categorie']) {
     case 'add':

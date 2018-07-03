@@ -5,7 +5,7 @@ require_once '../Connexion/connexion.php';
 session_start();
 if (empty($_POST['debut']) | empty($_POST['fin'])) 
  {
-       header('Location: ..');
+       header('Location: ../index.html');
 }
 else {
   switch ($_POST['dispo']) {

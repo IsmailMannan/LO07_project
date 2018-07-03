@@ -1,12 +1,12 @@
 <div>
-<form method="get" action="">
+<form method="get" action="#">
   <div class="row center">
     <div class="input-field col s3">
-        <input id="date"
+        <input type="date" id="date"
         <?php if (isset($_GET['date']) && $_GET['date'] !== "") {
           echo "value=".$_GET['date'];
         }?>
-        type="text" class="datepicker" name="date">
+         class="datepicker" name="date">
         <label for="date">Date</label>
     </div>
     <div class="input-field col s3">
@@ -14,7 +14,7 @@
       <?php if (isset($_GET['debut']) && $_GET['debut'] !== "") {
         echo "value=". $_GET['debut'];
       }?>
-      type="text" class="timepicker" name="debut">
+      type="time" class="timepicker" name="debut">
       <label for="debut">Debut</label>
     </div>
     <div class="input-field col s3">
@@ -22,7 +22,7 @@
       <?php if (isset($_GET['fin']) && $_GET['fin'] !== "") {
         echo "value=". $_GET['fin'];
       }?>
-      type="text" class="timepicker" name="fin">
+      type="time" class="timepicker" name="fin">
       <label for="fin">Fin</label>
     </div>
     <div class="input-field col s3">
@@ -35,7 +35,7 @@
         <?php
           require_once '../Connexion/connexion.php';
           session_start();
-          $sqlE = "SELECT * FROM enfant WHERE idParent = '". $_SESSION['id']."'";
+          $sqlE = "SELECT * FROM enfant WHERE idParent = '". $_SESSION['user']['idUtilisateur']."'";
           $resE = $conn->query($sqlE);
           while($enf = $resE->fetch_row()){
             echo "<option value=$enf[0]>$enf[2]</option>";
@@ -93,13 +93,9 @@ if (isset($_GET['date'])) {
 $res = $conn->query($sql);
 if($res) {
   while ($row = $res->fetch_assoc()) {
-    $id = $row['idUtilisateur'];
+    $id = $row['idNounou'];
    // $sql2 = "SELECT * FROM utilisateur_has_langue ul INNER JOIN langue l ON ul.langue_id = l.langue_id WHERE utilisateur_email = '$email'";
   //  $res2 = $conn->query($sql2)->fetch_all();
-    $langues = '';
-    for ($i=0; $i < count($res2); $i++) {
-      $langues .= $res2[$i][3] . ' ';
-    };
     if (isset($_GET['date'])){
       $dateUS = $conv->format('Y-m-d');
       $sql3 = "SELECT * FROM prestation WHERE idNounou = '$id'
@@ -116,7 +112,7 @@ if($res) {
         <span class="card-title"><img src="data:image/jpeg;base64,<?php echo base64_encode( $row['photo'] )?>" width="50"/>   <?php echo $row["prenom"] ?></span>
         <p>Ville: <?php echo $row['ville']?></p>
         <p>Expérience: <?php echo $row['experience']?></p>
-        <p>Présentation: <?php echo $row['presentation']?></p>
+        <p>Présentation: <?php echo $row['phrase_presentation']?></p>
         <p>Langues: <?php echo $langues?></p>
       </div>
       <div class="card-action">

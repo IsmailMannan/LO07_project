@@ -55,7 +55,7 @@ require_once '../Connexion/connexion.php';
 //  }
 //}
 //$sql = 'INSERT into utilisateur (nom,prenom,adresse,email,mdp,portable,photo,age,experience,phrase_presentation,type_user) values ("'.$_POST['nom'].'","'.$_POST['prenom'].'")';
-$sql = 'INSERT into utilisateur (nom,prenom,adresse,email,mdp,portable,photo,age,experience,phrase_presentation,type_user) values ("'.$_POST['nom'].'","'.$_POST['prenom'].'","'.$_POST['ville'].'","'.$_POST['email'].'","'.$_POST['password'].'","'.$_POST['portable'].'","","'.$_POST['age'].'","'.$_POST['experience'].'","'.$_POST['presentation'].'",1)';
+$sql = 'INSERT into utilisateur (nom,prenom,adresse,email,mdp,portable,photo,age,experience,phrase_presentation,type_user,categorie) values ("'.$_POST['nom'].'","'.$_POST['prenom'].'","'.$_POST['ville'].'","'.$_POST['email'].'","'.$_POST['password'].'","'.$_POST['portable'].'","","'.$_POST['age'].'","'.$_POST['experience'].'","'.$_POST['presentation'].'",1,0)';
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
     echo $conn->insert_id;

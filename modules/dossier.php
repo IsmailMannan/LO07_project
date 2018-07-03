@@ -22,13 +22,12 @@
     <br>
 <?php require_once '../Connexion/connexion.php';
 session_start();
-$id = $_SESSION['id'];
 
-$sql = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE idUtilisateur='6'";
+$sql = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_presentation FROM utilisateur WHERE idUtilisateur='".$_SESSION['user']['idUtilisateur']."'";
 
 $nounou = $conn->query($sql);
 $row = $nounou->fetch_row();
-$sql2 = "SELECT idPrestation, date_debut, date_fin, idNounou, idParent, tarif FROM prestation WHERE  idNounou='$id'";
+$sql2 = "SELECT idPrestation, date_debut, date_fin, idNounou, idParent, tarif FROM prestation WHERE  idNounou='".$_SESSION['user']['idUtilisateur']."'";
 $garde = $conn->query($sql2);
 echo("<h5> Prénom : $row[1]</h5>");
 echo("<h5> Nom : $row[0]</h5>");

@@ -5,8 +5,8 @@ require_once '../Connexion/connexion.php';
 
 //0 en attente, 1 ounou, 2 bloquée
 if (isset($_GET['categorie'])) {
-  if ($_GET['categorie'] == '2') {
-    $sql = "UPDATE utilisateur SET type_user='2' WHERE email='".$_GET['email']."'";
+  if ($_GET['categorie'] == '1') {
+    $sql = "UPDATE utilisateur SET type_user='1' WHERE email='".$_GET['email']."'";
     $conn->query($sql);
     header('Location: ../Admin/listes.php?nounous');
   }

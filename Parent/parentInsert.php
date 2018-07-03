@@ -17,4 +17,5 @@ if ($test->num_rows == 0){
   echo 'email deja utilisé';
 }
 
+$conn->close();
 ?>

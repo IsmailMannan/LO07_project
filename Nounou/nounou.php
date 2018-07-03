@@ -1,13 +1,7 @@
 <?php require_once '../Connexion/connexion.php';
 //Permet de vérifier si l'utilisateur est autorisé à accéder à la page
 session_start();
-//$_SESSION['id'] = $rows[idUtilisateur];
-//$sqlDispo = "SELECT * FROM disponibilite WHERE idNounou = '".$_SESSION['user']."'";
-//$res = $conn->query($sqlDispo);
-//Si la nounou n'a pas de disponibilité enregistrée, alors elle est redirigé vers la page dispo
-//if($res->num_rows == 0) {
-//  header('Location: ..\forms\dispo.html');
-//} else {
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -26,7 +20,7 @@ session_start();
   <nav class="white">
     <div class="container nav-wrapper">
       <ul class="right hide-on-med-and-down">
-        <li>  <a href="../modules/dossier.php?id=6" class="btn waves-effect waves-light  pink lighten-1">Mon profil</a></li>
+          <li>  <a href="../modules/dossier.php?id=<?php echo $_SESSION['user']['idUtilisateur']; ?>" class="btn waves-effect waves-light  pink lighten-1">Mon profil</a></li>
         <li>  <a href="../Connexion/deconnexion.php" class="btn waves-effect waves-light  pink lighten-1">Déconnexion</a></li>
       </ul>
     </div>
