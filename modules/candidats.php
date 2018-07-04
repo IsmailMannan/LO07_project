@@ -12,8 +12,7 @@ if (isset($_GET['categorie'])) {
       header('Location: ../Admin/listes.php?candidats');
       break;
     case 'remove':
-   //   $sql = "DELETE FROM utilisateur WHERE utilisateur_email='".$_GET['email']."';";
-      $sql .= "DELETE FROM utilisateur WHERE email='".$_GET['email']."'";
+      $sql = "DELETE FROM utilisateur WHERE email='".$_GET['email']."'";
       $conn->multi_query($sql);
       header('Location: ../Admin/listes.php?candidats');
       break;

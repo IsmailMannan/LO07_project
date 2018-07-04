@@ -42,14 +42,6 @@
           }
         ?>
       </select>
-      <label>Enfants</label>
-      </div>
-      <div class="input-field col s3">
-        <select name="type">
-          <option value="occ">Occasionnelle</option>
-          <option value="reg">Régulière</option>
-        </select>
-        <label for="debut">Type de garde</label>
       </div>
       <div class="input-field col s3">
           <select name ='langue' class='select'>

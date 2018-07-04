@@ -24,8 +24,8 @@ else {
      foreach ($jours as $value) {
         $sql = "INSERT INTO disponibilite(jour, date_debut, date_fin, idNounou) VALUES ('$value','$debut','$fin','".$_SESSION['id']."')";
         if($conn->query($sql) === TRUE) {
-             echo "Insertion effectuée";
-             header('Location: ../index.html');
+             echo '<script type="text/javascript">alert("Creation de l\'utilisateur et ajout des dispos");document.location.href = "../index.html";</script>';
+             //header('Location: ../index.html');
         }
             else {
                 echo "Error: " . $sql . "<br>" . $conn->error;

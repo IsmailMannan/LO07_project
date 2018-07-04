@@ -6,8 +6,8 @@ $resblock = "SELECT nom,prenom,adresse,email,portable,age,experience,phrase_pres
 
 $nounousBlock = $conn->query($resblock);
 
-if (isset($_GET['type'])) {
-  if ($_GET['type'] == 'unlock') {
+if (isset($_GET['categorie'])) {
+  if ($_GET['categorie'] == 'unlock') {
     $sql = "UPDATE utilisateur SET categorie='2' WHERE email='".$_GET['email']."'";
     $conn->query($sql);
     header('Location: ../Admin/listes.php?bloques');
@@ -46,7 +46,7 @@ if (isset($_GET['type'])) {
         echo "<td>".$value."</td>";
       }
     echo "<td class='center'>" ?>
-    <a style='cursor:pointer;' href='listes.php?type=unlock&email=<?php echo $row[3] ?>'><i class='small material-icons green-text'>lock_open</i></a>
+    <a style='cursor:pointer;' href='listes.php?categorie=unlock&email=<?php echo $row[3] ?>'><i class='small material-icons green-text'>lock_open</i></a>
     </td>
     <td class='center'>
       <a style='cursor:pointer;' href='../modules/dossier.php?email=<?php echo $row[3] ?>'><i class='small material-icons'>link</i></a>

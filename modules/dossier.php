@@ -40,7 +40,7 @@ echo("<h5> Nombre de gardes : ".$garde->num_rows ."</h5><br/>");
   <thead>
 
   <tr>
-      <th>Garde</th>
+      <th>Prestation</th>
       <th>Parent</th>
       <th>Evaluation du parent</th>
       <th>Revenu</th>
